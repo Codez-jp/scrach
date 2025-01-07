@@ -1,58 +1,55 @@
-# テーマ
-- TypeScript 単体動作テンプレート
+# タイトル
+スクラッチで理解する React を使うための TypeScript 超入門
 
-## 前提条件
-- node: v20.28.0
-- npm: 11.0.0
+### 学べる事
+- TypeScriptのトランスパイル実行
+- Reactの最小構成でのビルド実行
 
-## ひな形導入
-1. 前提条件の確認
+### 対象
+- これからフロントエンド開発を行いたいと考えているひと
+- TypeScript と JavaScript の関係を学びたいと考えているひと
+
+### 前提条件
+- node: v20.x
+- npm: 11.x
+- react: 19.x
+
+1. 前提条件の確認方法
 ```bash
 $ node -v
 $ npm -v
 ```
 
-2. node プロジェクトを初期化
-
+### 環境構築
+1. node プロジェクトを初期化
 ```bash
-$ npm init
+$ npm install
 ```
-node のパッケージ管理を行う package.json が出力される
 
-3. TypeScript を使えるようにする
-
+2. 導入確認
+トランスパイラのバージョン確認
 ```bash
-$ npm install typescript --save-dev
 $ tsc -v
 ```
-
-4. トランスパイらの初期化
-
-```bash
-$ tsc --init
-```
-とりあえずこれで使えるが、色々便利な設定が最初からしてあるマイクロソフトの設定ファイルで上書きする ＊
-
-> https://github.com/microsoft/TypeScript-Node-Starter/blob/master/tsconfig.json
 
 (tsconfig.json)の主な設定
 ```json
 - compilerOptions
-  - target: es6
+  - target: es6 -> TypeScriptバージョン
   - outDir: dist -> 出力先
-  - paths
-    - "*"
-      - node_module
-      - src/types/*
+  ：
 - include
   - "src/**/* -> 入力元
-- exclude
+- exclude -> コンパイル除外
   - "node_module",
   - "dist"
 ```
 
-5. script に実行コマンドを定義
+### 使用方法
+1. ビルドの実行
+package.json の scripts に実行コマンドのエイリアスを定義
 
+(例)
 - build: TypeScriptのコンパイル
 - watch: コンパイル対象を監視し、変更時に自動コンパイル
 
@@ -62,98 +59,48 @@ $ tsc --init
     "build": "tsc",
     "watch": "tsc -w",
 ```
-build でトランスパイルを実行  
-watch で変化を検知してトランスパイルを実行
 
-6. トランスパイルする
+2. トランスパイルする
 
 ```bash
 $ npm run build
 ```
-dist フォルダに TypeScript からトランスパイルされた JavaScript のファイルが出力される
-
-7. ビルド・実行する
-```bash
-$ npm run build
-$ node ./dist/scripts/(target).js
-```
-※常にビルド対象を監視し、毎回ビルドする手間を省ける
+もしくは
 ```bash
 $ npm run watch
 ```
+src フォルダ以下の TypeScript ファイルが JavaScript にトランスパイルされ dist フォルダ以下に出力される
 
-## 各種サンプル
-
-### MUI with react
-
-1. react に必要なパッケージを追加
-
-必要な node パッケージをインストール
+3. 実行する
+実行は node.js で行う
 ```bash
-$ npm install @mui/material @emotion/react @emotion/styled react react-dom
+$ node ./dist/scripts/(target).js
 ```
 
-必要な type をインストール ※動作に必須ではないが、型の明確化により、VSコードの自動補完が使えるなどのメリットがある
-```bash
-$ npm install @types/react-dom --save-dev
+## （各種サンプル）
+
+### Material UI を react で試すサンプル
+
+1. フォルダ構成
+( )内のフォルダは環境再構築時に消去可
 ```
-
-2. JSX を使用できるようにする
-
---jsx に react を指定する  
-(tsconfig.json)
-```json
-{
-  "compilerOptions": {
-    "jsx": "react" <-ここを追加
-  },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
-}
+root
+  |-(dist) <-トランスパイルされたJavaScriptファイル
+  |-(node_module) <-npmで導入されたJavaScriptライブラリ
+  |-public
+  |   |-index.html <-ブラウザで確認できるHTMLファイル
+  |-src
+      |-components <-Reactのコンポーネント
+      |-scripts <-各種スクリプト
+      index.tsx <-Reactのエントリーポイント
+  .gitignore
+  package-lock.json
+  package.json
+  README_build.md <-本環境の詳しい作成方法
+  README.md <-このドキュメント
+  tsconfig.json <-TypeScriptの環境設定
+  webpack.config.js <-Reactプロジェクトの環境設定
 ```
-
-4. バンドラを有効化する
-
-CommonJS モジュールシステムを使用しているコードをブラウザで直接実行するとエラーが出るため、バンドラ（WebPack や Vite）を設定する必要がある
-
-必要な node パッケージをインストールする
-```bash
-$ npm install --save-dev webpack webpack-cli ts-loader
-```
-
-WebPack の設定ファイルをプロジェジェクトルートに作成する  
-
-(webpack.config.js)
-```javascript
-const path = require('path');
-
-module.exports = {
-    entry: './src/index.tsx',
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist'),
-    },
-    resolve: {
-        extensions: ['.ts', '.tsx', '.js'],
-    },
-    module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/,
-            },
-        ],
-    },
-    mode: 'development',
-};
-```
-HTML側でバンドルされた JavaScript ファイルを読み込む様にする  
 
 (public/index.html)
 ```html
@@ -171,22 +118,12 @@ HTML側でバンドルされた JavaScript ファイルを読み込む様にす�
 </html>
 ```
 
-webpack の build スクリプトを追加する  
-(package.json)
-```json
-  "scripts": {
-    "build-react": "webpack", <-ここ
-    "build": "tsc",
-    "watch": "tsc -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-```
-
-プロジェクトをビルドする
+2. react プロジェクトをビルドする
 ```bash
 npm run build-react
 ```
 
-動作確認  
-
+3. 動作確認  
 dist/index.html をブラウザで表示すると react プロジェクトが表示される
+
+(EOF)
