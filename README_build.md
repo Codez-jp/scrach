@@ -1,4 +1,5 @@
-# テーマ
+# プロジェクト名
+- Scratch
 - TypeScript 単体動作テンプレート
 
 ## 前提条件
@@ -133,41 +134,42 @@ WebPack の設定ファイルをプロジェジェクトルートに作成する
 const path = require('path');
 
 module.exports = {
-    entry: './src/index.tsx',
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist'),
-    },
-    resolve: {
-        extensions: ['.ts', '.tsx', '.js'],
-    },
-    module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/,
-            },
-        ],
-    },
-    mode: 'development',
+  entry: './src/index.tsx',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  mode: 'development',
 };
 ```
 HTML側でバンドルされた JavaScript ファイルを読み込む様にする  
 
 (public/index.html)
 ```html
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <h1>Hello World</h1>
-  <h1>React</h1>
-  <div id="root"></div>
-  <script src="bundle.js"> <- ここ </script>
-</body>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Hello World</h1>
+    <h1>React</h1>
+    <div id="root"></div>
+    <script src="bundle.js"></script><!-- ← ここに追加 -->
+  </body>
 </html>
 ```
 
@@ -189,4 +191,5 @@ npm run build-react
 
 動作確認  
 
-dist/index.html をブラウザで表示すると react プロジェクトが表示される
+1. dist/index.html をブラウザで表示
+react プロジェクトが表示される

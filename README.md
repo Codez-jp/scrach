@@ -82,40 +82,25 @@ $ node ./dist/scripts/(target).js
 ### Material UI を react で試すサンプル
 
 1. フォルダ構成
-( )内のフォルダは環境再構築時に消去可
-```
+( )内のフォルダは build、npm install 時に生成される
+```plaintext
 root
-  |-(dist) <-トランスパイルされたJavaScriptファイル
-  |-(node_module) <-npmで導入されたJavaScriptライブラリ
-  |-public
-  |   |-index.html <-ブラウザで確認できるHTMLファイル
-  |-src
-      |-components <-Reactのコンポーネント
-      |-scripts <-各種スクリプト
-      index.tsx <-Reactのエントリーポイント
-  .gitignore
-  package-lock.json
-  package.json
-  README_build.md <-本環境の詳しい作成方法
-  README.md <-このドキュメント
-  tsconfig.json <-TypeScriptの環境設定
-  webpack.config.js <-Reactプロジェクトの環境設定
-```
-
-(public/index.html)
-```html
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <h1>Hello World</h1>
-  <h1>React</h1>
-  <div id="root"></div>
-  <script src="bundle.js"> <- ここ </script>
-</body>
-</html>
+  ├─ (dist) <-トランスパイルされたJavaScriptファイル
+  ├─ (node_module) <-npmで導入されたJavaScriptライブラリ
+  ├─ public
+  │   └─ index.html <-ブラウザで表示するHTMLファイル
+  ├─ src
+  │   ├─ components <-Reactの子コンポーネント
+  │   ├─ scripts <-TypeScriptファイル
+  │   ├─ App.tsx <-Reactの親コンポーネント
+  │   └─ index.tsx <-Reactのエントリーポイント
+  ├─ .gitignore
+  ├─ package-lock.json
+  ├─ package.json
+  ├─ README_build.md <-本環境の詳しい作成方法
+  ├─ README.md <-このドキュメント
+  ├─ tsconfig.json <-TypeScriptの環境設定
+  └─ webpack.config.js <-Reactプロジェクトの環境設定
 ```
 
 2. react プロジェクトをビルドする
