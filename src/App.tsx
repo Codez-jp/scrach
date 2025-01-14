@@ -5,6 +5,9 @@ import Counter from './components/Counter';
 // MockAPIコンポーネントをインポートする
 import MockAPISimple from './components/MockAPISimple';
 import MockAPIwithMUI from './components/MockAPIwithMUI';
+// Progreコンポーネントをインポートする
+import Progre from './components/Progre';
+import ProgreSimple from './components/ProgreSimple';
 
 // 親コンポーネントであるAppコンポーネントを構成する要素を return 以降に記述する
 // React.FC は、React.FunctionComponent の省略形
@@ -16,10 +19,11 @@ const App: React.FunctionComponent = () => {
     <div>
       {/* Reactのコンポーネントは何らかのHTMLタグで囲む必要がある */}
       {/* 親のAppコンポーネントに子のCounterコンポーネントをレンダリングする記述 */}
-      <Counter />
-      <Counter />
-      <MockAPIwithMUI />
+      {/* <Counter /> */}
+      {/* <MockAPIwithMUI /> */}
       {/* <MockAPISimple /> */}
+      <ProgreSimple />
+      <Progre />
     </div>
   );
 };
