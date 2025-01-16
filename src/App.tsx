@@ -8,6 +8,7 @@ import MockAPIwithMUI from './components/MockAPIwithMUI';
 // Progreコンポーネントをインポートする
 import Progre from './components/Progre';
 import ProgreSimple from './components/ProgreSimple';
+import CurrentTime from './components/CurrentTime';
 
 // 親コンポーネントであるAppコンポーネントを構成する要素を return 以降に記述する
 // React.FC は、React.FunctionComponent の省略形
@@ -22,8 +23,9 @@ const App: React.FunctionComponent = () => {
       {/* <Counter /> */}
       {/* <MockAPIwithMUI /> */}
       {/* <MockAPISimple /> */}
-      <ProgreSimple />
-      <Progre />
+      {/* <ProgreSimple /> */}
+      {/* <Progre /> */}
+      <CurrentTime />
     </div>
   );
 };
